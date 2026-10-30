@@ -146,7 +146,7 @@ void display()
 
     printf("Linked list: ");
 
-    while (temp != NULL)
+    while (temp!= NULL)
     {
         printf("%d ", temp->data);
         temp = temp->next;

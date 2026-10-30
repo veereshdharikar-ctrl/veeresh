@@ -3,6 +3,9 @@
 int queue[n];
 int front=-1;
 int rear=-1;
+
+
+
 void enque()
 {
     int x;
