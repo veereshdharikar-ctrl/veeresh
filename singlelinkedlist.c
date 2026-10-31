@@ -122,7 +122,7 @@ void insertpos()
     {
         newnode->next=head;
         head=newnode;
-        if(temp=NULL)
+        if(temp==NULL)
          temp=newnode;
         return;
 
@@ -146,17 +146,6 @@ void insertpos()
     temp=newnode;
     printf("Element inserted at the postion succesfuly!");
     
-}
-int count()
-{
-    int i=0;
-    struct node *trmp=head;
-    while(temp!=NULL)
-    {
-        i++;
-        temp=temp->next;
-    }
-    return i;
 }
 
 void deleteatbeg()
@@ -207,46 +196,58 @@ void deleteatend()
    }
 
 }
+int count()
+{
+    int i=0;
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        i++;
+        temp=temp->next;
+    }
+    return i;
+}
 void deletepos()
 {
     struct node *current;
     struct node *prev;
     int size=count();
+    int pos,i=1;
     if (head==NULL)
     {
         printf("linked list is empty!");
         return;
     }
-    int pos,i=1;
-    current=head;
-    if(head->next!=NULL)
+    printf("\nEnter the postion to delete element: ");
+    scanf("%d",&pos);
+    
+    if(pos<1||pos>size)
     {
-        printf("%d ",head->data);
-        free(head);
-        head=NULL;
-        temp=NULL;
+        printf("invalid postion !");
         return;
     }
-    else
+    
+    current=head;
+    if(pos==1)
     {
-        if(pos<1||pos>size)
-        {
-            printf("invalid postion!");
-            return;
-        }
-        else
-        {
-            while(i!=pos)
-            {
-                prev=current;
-                current=current->next;
-                i++;
-            }
-            printf("Deleted element at pos %d ",current->data);
-            prev->next=current->next;
-            free(current);
-        }
+        printf("%d ",head->data);
+        current=head;
+        head=head->next;
+        free(current);
+        return;
     }
+    while(i!=pos)
+    {
+        prev=current;
+        current=current->next;
+        i++;
+    }
+    prev->next=current->next;
+    printf("Deleted element at pos %d ",current->data);
+    free(current);
+    
+    
+    
 }
 
 void display()
@@ -285,7 +286,7 @@ int main(void)
         printf("5.Delete at beging\n");
         printf("6.Delete at the end\n");
         printf("7.Deleting element at the pos\n");
-        printf("8.Display the elements :\n");
+        printf("8.Display the elements \n");
         printf("9.Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &n);
