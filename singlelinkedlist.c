@@ -10,7 +10,7 @@ struct node
 struct node *head = NULL;
 struct node *temp=NULL;
 
-void create(void)
+void create()
 {
     struct node *newnode;
 
@@ -147,6 +147,18 @@ void insertpos()
     printf("Element inserted at the postion succesfuly!");
     
 }
+int count()
+{
+    int i=0;
+    struct node *trmp=head;
+    while(temp!=NULL)
+    {
+        i++;
+        temp=temp->next;
+    }
+    return i;
+}
+
 void deleteatbeg()
 {
    struct node *item=head;
@@ -195,6 +207,47 @@ void deleteatend()
    }
 
 }
+void deletepos()
+{
+    struct node *current;
+    struct node *prev;
+    int size=count();
+    if (head==NULL)
+    {
+        printf("linked list is empty!");
+        return;
+    }
+    int pos,i=1;
+    current=head;
+    if(head->next!=NULL)
+    {
+        printf("%d ",head->data);
+        free(head);
+        head=NULL;
+        temp=NULL;
+        return;
+    }
+    else
+    {
+        if(pos<1||pos>size)
+        {
+            printf("invalid postion!");
+            return;
+        }
+        else
+        {
+            while(i!=pos)
+            {
+                prev=current;
+                current=current->next;
+                i++;
+            }
+            printf("Deleted element at pos %d ",current->data);
+            prev->next=current->next;
+            free(current);
+        }
+    }
+}
 
 void display()
 {
@@ -225,14 +278,15 @@ int main(void)
     do
     {
         printf("\n--- LINKED LIST MENU ---\n");
-        printf("1. Create node\n");
-        printf("2.insertion at beging\n");
-        printf("3.insert at the end\n");
-        printf("4.insertion at the position\n");
-        printf("5.delete at beging\n");
-        printf("6.delete at the end\n");
-        printf("7.Display list\n");
-        printf("8. Exit\n");
+        printf("1.Create node\n");
+        printf("2.Insertion at beging\n");
+        printf("3.Insert at the end\n");
+        printf("4.Insertion at the position\n");
+        printf("5.Delete at beging\n");
+        printf("6.Delete at the end\n");
+        printf("7.Deleting element at the pos\n");
+        printf("8.Display the elements :\n");
+        printf("9.Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &n);
 
@@ -257,10 +311,13 @@ int main(void)
                 deleteatend();
                 break;
             case 7:
+                deletepos();
+                break;
+            case 8:
                 display();
                 break;
 
-            case 8:
+            case 9:
                 printf("Exiting program.\n");
                 break;
 
@@ -268,7 +325,7 @@ int main(void)
                 printf("Invalid choice!\n");
         }
 
-    } while (n != 8);
+    } while (n != 9);
 
     return 0;
 }
