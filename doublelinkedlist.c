@@ -45,26 +45,95 @@ void create(void)
     printf("Node created successfully!\n");
 
 }
+
 void insertbeg(void)
 {
     struct node *newnode;
-    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode = (struct node *)malloc(sizeof(struct node));
 
-    if (newnode== NULL)
+    if (newnode == NULL)
     {
-        printf("\n memory allocation id failed!");
+        printf("\nMemory allocation failed!");
+        return;
     }
 
-    printf("\nEnter the new element to insert at beging: ");
-    scanf("%d",&newnode->data);
-
-    newnode->next=head;
-    head=newnode;
-    if(temp=NULL)
+    printf("\nEnter the new element to insert at beginning: ");
+    if (scanf("%d", &newnode->data) != 1)
     {
-        temp=newnode;
+        printf("Invalid input! Please enter an integer.\n");
+        free(newnode);
+        return;
     }
-    printf("inserted succesfull!");
+
+    newnode->next = head;
+    newnode->prev = NULL;
+
+    if (head != NULL)
+    {
+        head->prev = newnode;
+    }
+    
+    head = newnode;
+
+    if (temp == NULL)
+    {
+        temp = newnode;
+    }
+
+    printf("Inserted successfully!\n");
+}
+
+void deletebeg()
+{
+    struct node *temp;
+    if(head==NULL)
+    {
+        printf("Linked list empty!\n");
+        return;
+    }
+    if(head->next==NULL)
+    {
+       printf("deleted element: %d",head->data);
+       free(head);
+       head=NULL;
+       return; 
+    }
+    else
+    {
+        temp=head;
+        head=temp->next;
+        head->prev=NULL;
+        printf("Deleted element is: %d ",temp->data);
+        free(temp);
+    }
+}
+void deleteEnd()
+{
+    struct node *temp;
+    struct node *current;
+    if (head == NULL)
+    {
+        printf("Linked list is empty!\n");
+        return;
+    }
+    if(head->next==NULL)
+    {
+       printf("deleted element: %d",head->data);
+       free(head);
+       head=NULL;
+       return; 
+    }
+    temp=head;
+    current=head;
+    while(current->next!=NULL)
+    {
+        temp=current;
+        current=current->next;
+    }
+    temp->next=NULL;
+    printf("Deleted element is: %d ",current->data);
+    free(current);
+    
 }
 void display(void)
 {
